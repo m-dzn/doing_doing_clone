@@ -21,7 +21,7 @@ class _DiaryListState extends State<DiaryList> {
             crossAxisCount: 2,
             crossAxisSpacing: 24,
             mainAxisSpacing: 24,
-            childAspectRatio: (4 / 7),
+            childAspectRatio: (5 / 8),
             children: List.generate(4, (index) {
               //item 의 반복문 항목 형성
               return DiaryItem(
