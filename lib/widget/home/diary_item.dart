@@ -1,9 +1,9 @@
-import 'package:doing_doing_clone/widget/name_sticker.dart';
-import 'package:doing_doing_clone/widget/todo_item.dart';
+import 'package:doing_doing_clone/widget/common/name_sticker.dart';
+import 'package:doing_doing_clone/widget/common/todo_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../model/model_diary.dart';
+import '../../model/model_diary.dart';
 
 class DiaryItem extends StatefulWidget {
   Diary? diary;
