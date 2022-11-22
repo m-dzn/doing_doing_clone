@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class NameSticker extends StatelessWidget {
-  NameSticker({super.key, required this.label});
+  const NameSticker({super.key, required this.label});
 
-  String label;
+  final String label;
 
   @override
   Widget build(BuildContext context) {

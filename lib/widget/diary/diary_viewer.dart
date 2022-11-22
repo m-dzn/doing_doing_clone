@@ -1,8 +1,7 @@
-import 'package:doing_doing_clone/widget/common/todo_item.dart';
+import 'package:flutter/material.dart';
+import 'package:doing_doing_clone/widget/todo/todo_item.dart';
 import 'package:doing_doing_clone/widget/diary/emotion_input.dart';
 import 'package:doing_doing_clone/widget/diary/write_button.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class DiaryViewer extends StatefulWidget {
   @override
@@ -39,7 +38,8 @@ class _DiaryViewerState extends State<DiaryViewer> {
                   maxLines: null,
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
-                      hintText: "오늘은 어떤 하루였나요?", border: InputBorder.none),
+                      hintText: "오늘은 어떤 하루였나요?", border: InputBorder.none
+                  ),
                 )
               ]))
         ]));

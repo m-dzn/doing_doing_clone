@@ -1,6 +1,5 @@
-import 'package:doing_doing_clone/widget/common/name_sticker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:doing_doing_clone/widget/common/name_sticker.dart';
 
 class DiaryNavBar extends StatefulWidget {
   @override

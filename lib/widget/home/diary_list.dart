@@ -1,7 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:doing_doing_clone/model/model_diary.dart';
 import 'package:doing_doing_clone/widget/home/diary_item.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class DiaryList extends StatefulWidget {
   Diary? diary;

@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:doing_doing_clone/widget/common/custom_app_bar.dart';
 import 'package:doing_doing_clone/widget/home/diary_list.dart';
-import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,9 +13,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppBar(),
-      body: Center(child: DiaryList()),
+    return SafeArea(
+        child: Scaffold(
+          appBar: const CustomAppBar(),
+          body: Center(child: DiaryList()),
+        )
     );
   }
 }
