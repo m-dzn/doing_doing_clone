@@ -22,6 +22,7 @@ class _ReorderableTodoListState extends State<ReorderableTodoList> {
         borderRadius: BorderRadius.circular(16)
       ),
       child: ReorderableListView(
+        buildDefaultDragHandles: false,
         children: <Widget>[
           for (final item in _list)
             ListTile(
