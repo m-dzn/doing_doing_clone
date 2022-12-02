@@ -22,13 +22,12 @@ class _ReorderableTodoListState extends State<ReorderableTodoList> {
         borderRadius: BorderRadius.circular(16)
       ),
       child: ReorderableListView(
-
         children: <Widget>[
           for (final item in _list)
             ListTile(
               key: ValueKey(item),
               title: ReorderableTodo(content: item),
-              trailing: Icon(Icons.dehaze),
+              trailing: const Icon(Icons.dehaze),
             ),
         ],
         onReorder: (int oldIndex, int newIndex) {

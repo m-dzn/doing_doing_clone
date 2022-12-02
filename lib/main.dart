@@ -1,4 +1,4 @@
-import 'package:doing_doing_clone/screen/screen_diary_editor.dart';
+import 'package:doing_doing_clone/screen/screen_home.dart';
 import 'package:doing_doing_clone/service/app.theme.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Doing Doing Clone',
       theme: themeData,
-      home: const DiaryEditorScreen(),
+      home: const HomeScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
+
 }

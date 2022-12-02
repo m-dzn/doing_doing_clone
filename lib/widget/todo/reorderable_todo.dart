@@ -10,7 +10,7 @@ class ReorderableTodo extends StatelessWidget {
     return Container(
       child: Row(
         children: [
-          IconButton(icon: Icon(Icons.cancel_outlined, color: Colors.black,), onPressed: () {}),
+          IconButton(icon: const Icon(Icons.cancel_outlined, color: Colors.black,), onPressed: () {}),
           Expanded(child: Text(content)),
         ]
       )

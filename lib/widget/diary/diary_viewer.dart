@@ -15,8 +15,9 @@ class _DiaryViewerState extends State<DiaryViewer> {
         color: Colors.white,
         width: double.infinity,
         padding: const EdgeInsets.all(12),
-        child: Stack(children: [
-          Positioned(top: 16, right: 16, child: WriteButton()),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
           Container(
               padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 28),
               decoration: BoxDecoration(
@@ -38,10 +39,10 @@ class _DiaryViewerState extends State<DiaryViewer> {
                   maxLines: null,
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
-                      hintText: "오늘은 어떤 하루였나요?", border: InputBorder.none
-                  ),
+                      hintText: "오늘은 어떤 하루였나요?", border: InputBorder.none),
                 )
-              ]))
+              ])),
+          Positioned(top: 16, right: 16, child: WriteButton()),
         ]));
   }
 }

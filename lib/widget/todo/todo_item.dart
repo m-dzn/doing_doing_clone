@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class TodoItem extends StatefulWidget {
-  TodoItem({super.key});
+  // final Todo todo;
+
+  TodoItem({
+    super.key,
+    // required this.todo
+  });
 
   @override
   _TodoItemState createState() => _TodoItemState();
