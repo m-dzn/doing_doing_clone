@@ -1,24 +1,24 @@
+import 'package:doing_doing_clone/provider/todos.dart';
 import 'package:flutter/material.dart';
+import 'package:doing_doing_clone/model/model_todo.dart';
+import 'package:provider/provider.dart';
 
-class TodoItem extends StatefulWidget {
-  // final Todo todo;
+class TodoItem extends StatelessWidget {
+  final Todo todo;
 
   TodoItem({
     super.key,
-    // required this.todo
+    required this.todo
   });
 
-  @override
-  _TodoItemState createState() => _TodoItemState();
-}
-
-class _TodoItemState extends State<TodoItem> {
-  bool _checked = false;
+  late TodosProvider _todosProvider;
 
   @override
   Widget build(BuildContext context) {
+    _todosProvider = Provider.of(context);
+
     return Container(
-        // 컨테이너
+      // 컨테이너
         height: 32,
         margin: const EdgeInsets.symmetric(vertical: 4),
         child: Row(
@@ -28,12 +28,10 @@ class _TodoItemState extends State<TodoItem> {
                   width: 18,
                   height: 18,
                   child: Checkbox(
-                    value: _checked,
-                    onChanged: (value) {
-                      setState(() {
-                      _checked = value!;
-                      });
-                    })
+                      value: todo.completed,
+                      onChanged: (value) {
+                        _todosProvider.toggleTodoState(todo);
+                      })
               ),
               const SizedBox(width: 12),
               Flexible(
@@ -44,7 +42,7 @@ class _TodoItemState extends State<TodoItem> {
                       decoration: const BoxDecoration(
                           border: Border(
                               bottom:
-                                  BorderSide(width: 1, color: Colors.black))),
+                              BorderSide(width: 1, color: Colors.black))),
                       child: const Text("할 일")))
             ]));
   }

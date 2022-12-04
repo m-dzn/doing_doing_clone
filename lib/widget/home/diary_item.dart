@@ -1,7 +1,6 @@
 import 'package:doing_doing_clone/screen/screen_diary.dart';
 import 'package:flutter/material.dart';
 import 'package:doing_doing_clone/widget/common/name_sticker.dart';
-import 'package:doing_doing_clone/widget/todo/todo_item.dart';
 
 import '../../model/model_diary.dart';
 
@@ -51,10 +50,7 @@ class _DiaryItemState extends State<DiaryItem> {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                TodoItem(),
-                                TodoItem(),
-                                TodoItem(),
-                                TodoItem()
+                                /*TodoItem()*/
                               ])))
                 ]))));
   }

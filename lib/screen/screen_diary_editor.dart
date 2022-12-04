@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:doing_doing_clone/widget/common/custom_app_bar.dart';
 import 'package:doing_doing_clone/widget/common/dd_text_field.dart';
 import 'package:doing_doing_clone/widget/common/name_sticker.dart';
-import 'package:doing_doing_clone/widget/todo/todo_editor.dart';
+import 'package:doing_doing_clone/widget/todo_editor/todo_editor.dart';
 
 class DiaryEditorScreen extends StatefulWidget {
   const DiaryEditorScreen({Key? key}) : super(key: key);
@@ -31,7 +31,9 @@ class _DiaryEditorScreenState extends State<DiaryEditorScreen> {
                     ]
                 ),
                 const SizedBox(height: 24),
+
                 const TodoEditor(),
+
                 Container( // 일기 내용 보이기
                   padding: const EdgeInsets.only(left: 16, right: 4),
                   child: Row(

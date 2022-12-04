@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:doing_doing_clone/widget/todo/todo_item.dart';
 import 'package:doing_doing_clone/widget/diary/emotion_input.dart';
 import 'package:doing_doing_clone/widget/diary/write_button.dart';
 
@@ -30,7 +29,7 @@ class _DiaryViewerState extends State<DiaryViewer> {
                 const SizedBox(height: 40),
                 Column(
                   // 투두 목록
-                  children: [TodoItem(), TodoItem()],
+                  children: [/*TodoItem(), TodoItem()*/],
                 ),
                 const SizedBox(height: 40),
                 EmotionInput(),
