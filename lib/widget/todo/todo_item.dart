@@ -13,6 +13,8 @@ class TodoItem extends StatefulWidget {
 }
 
 class _TodoItemState extends State<TodoItem> {
+  bool _checked = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,9 +27,14 @@ class _TodoItemState extends State<TodoItem> {
               Container(
                   width: 18,
                   height: 18,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(3),
-                      border: Border.all(color: Colors.black, width: 1))),
+                  child: Checkbox(
+                    value: _checked,
+                    onChanged: (value) {
+                      setState(() {
+                      _checked = value!;
+                      });
+                    })
+              ),
               const SizedBox(width: 12),
               Flexible(
                   flex: 1,
