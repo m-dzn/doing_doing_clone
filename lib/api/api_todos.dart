@@ -13,9 +13,12 @@ class TodosApi {
     return todoDoc.id;
   }
 
-  static Stream<List<Todo>> readTodos(DateTime date) {
-    final DateTime start = DateTime(date.year, date.month, 1, 0 , 0, 0);
-    final DateTime end = DateTime(date.year, date.month, 4, 23, 59, 59);
+  static Stream<List<Todo>> readTodos(DateTime? date) {
+    print(date);
+    if (date == null) return const Stream.empty();
+
+    final DateTime start = DateTime(date.year, date.month, date.day, 0 , 0, 0);
+    final DateTime end = DateTime(date.year, date.month, date.day, 23, 59, 59);
 
     return FirebaseFirestore.instance
       .collection('todo')

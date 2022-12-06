@@ -3,6 +3,7 @@ import 'package:doing_doing_clone/screen/screen_home.dart';
 import 'package:doing_doing_clone/service/app.theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
@@ -30,6 +31,15 @@ class MyApp extends StatelessWidget {
           theme: themeData,
           home: const HomeScreen(),
           debugShowCheckedModeBanner: false,
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate
+          ],
+          supportedLocales: const [
+            Locale('ko', 'KR')
+          ],
+          locale: const Locale('ko'),
         ));
   }
 }

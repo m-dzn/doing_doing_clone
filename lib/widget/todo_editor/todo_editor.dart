@@ -9,7 +9,12 @@ import 'package:provider/provider.dart';
 import '../common/name_sticker.dart';
 
 class TodoEditor extends StatefulWidget {
-  const TodoEditor({Key? key}) : super(key: key);
+  DateTime? date;
+
+  TodoEditor({
+    Key? key,
+    this.date
+  }) : super(key: key);
 
   @override
   State<TodoEditor> createState() => _TodoEditorState();
@@ -20,18 +25,21 @@ class _TodoEditorState extends State<TodoEditor> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDateSelected = widget.date != null;
+
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       const NameSticker(label: '할 일'),
       Row(children: [
         Expanded(
             child: DDTextField(
           controller: _textController,
-          hintText: "할 일을 추가해주세요",
+          hintText: isDateSelected ? "할 일을 추가해주세요" : "날짜를 먼저 입력해주세요",
+          readOnly: !isDateSelected
         )),
         IconButton(
             icon: const Icon(Icons.add, color: Colors.white),
             onPressed: () async {
-              Todo newTodo = Todo(text: _textController.text);
+              Todo newTodo = Todo(text: _textController.text, date: widget.date);
               await TodosApi.createTodo(newTodo);
               _textController.clear();
             }),
@@ -40,7 +48,7 @@ class _TodoEditorState extends State<TodoEditor> {
 
       /* 드래그 정렬 가능한 할 일 목록 위젯 */
       StreamBuilder<List<Todo>>(
-          stream: TodosApi.readTodos(DateTime.now()),
+          stream: TodosApi.readTodos(widget.date),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
