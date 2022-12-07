@@ -4,7 +4,12 @@ import 'package:doing_doing_clone/widget/diary/diary_nav_bar.dart';
 import 'package:doing_doing_clone/widget/diary/diary_viewer.dart';
 
 class DiaryScreen extends StatefulWidget {
-  const DiaryScreen({super.key});
+  DateTime date;
+
+  DiaryScreen({
+    super.key,
+    required this.date
+  });
 
   @override
   State<DiaryScreen> createState() => _DiaryScreenState();
@@ -20,7 +25,11 @@ class _DiaryScreenState extends State<DiaryScreen> {
           body: Container(
               padding: const EdgeInsets.symmetric(horizontal: 48),
               child: Column(
-                children: [DiaryNavBar(), const SizedBox(height: 24), DiaryViewer()],
+                children: [
+                  DiaryNavBar(date: widget.date),
+                  const SizedBox(height: 24),
+                  DiaryViewer()
+                ],
               )
           )
         )

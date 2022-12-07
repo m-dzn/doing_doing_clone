@@ -1,26 +1,32 @@
 import 'package:doing_doing_clone/screen/screen_diary.dart';
 import 'package:flutter/material.dart';
 import 'package:doing_doing_clone/widget/common/name_sticker.dart';
+import 'package:intl/intl.dart';
 
 import '../../model/model_diary.dart';
 
 class DiaryItem extends StatefulWidget {
-  Diary? diary;
+  Diary diary;
 
-  DiaryItem({super.key, this.diary});
+  DiaryItem({
+    super.key,
+    required this.diary
+  });
 
   @override
   _DiaryItemState createState() => _DiaryItemState();
 }
 
 class _DiaryItemState extends State<DiaryItem> {
+  DateFormat dateFormat = DateFormat('MM월 dd일 (E)', 'ko');
+  
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-          return DiaryScreen();
-        }));
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context) => DiaryScreen(date: widget.diary.date)
+        ));
       },
         child: Container(
             // 외부 여백
@@ -39,7 +45,7 @@ class _DiaryItemState extends State<DiaryItem> {
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: Colors.black12, width: 2)),
                       child: Column(
-                          children: <Widget>[NameSticker(label: '11월 15일')])),
+                          children: <Widget>[NameSticker(label: dateFormat.format(widget.diary.date))])),
                   Container(
                       // Body
                       margin: const EdgeInsets.only(top: 64),

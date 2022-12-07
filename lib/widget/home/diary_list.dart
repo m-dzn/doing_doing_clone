@@ -3,9 +3,9 @@ import 'package:doing_doing_clone/model/model_diary.dart';
 import 'package:doing_doing_clone/widget/home/diary_item.dart';
 
 class DiaryList extends StatefulWidget {
-  Diary? diary;
-
-  DiaryList({super.key, this.diary});
+  const DiaryList({
+    super.key
+  });
 
   @override
   _DiaryListState createState() => _DiaryListState();
