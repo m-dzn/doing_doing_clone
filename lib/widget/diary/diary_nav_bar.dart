@@ -3,11 +3,11 @@ import 'package:doing_doing_clone/widget/common/name_sticker.dart';
 import 'package:intl/intl.dart';
 
 class DiaryNavBar extends StatefulWidget {
-  DateTime date;
+  DateTime dateTime;
 
   DiaryNavBar({
     super.key,
-    required this.date
+    required this.dateTime
   });
 
   @override
@@ -28,7 +28,7 @@ class _DiaryNavBarState extends State<DiaryNavBar> {
                 icon: const Icon(Icons.arrow_back_ios, color: Colors.black38),
                 onPressed: () {}),
             const SizedBox(width: 8),
-            NameSticker(label: dateFormat.format(widget.date)),
+            NameSticker(label: dateFormat.format(widget.dateTime)),
             const SizedBox(width: 8),
             IconButton(
                 icon: const Icon(Icons.arrow_forward_ios, color: Colors.black38),

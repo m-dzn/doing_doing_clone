@@ -24,7 +24,7 @@ class TodoItem extends StatelessWidget {
         child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
+              SizedBox(
                   width: 18,
                   height: 18,
                   child: Checkbox(
@@ -43,7 +43,7 @@ class TodoItem extends StatelessWidget {
                           border: Border(
                               bottom:
                               BorderSide(width: 1, color: Colors.black))),
-                      child: const Text("할 일")))
+                      child: Text(todo.text)))
             ]));
   }
 }

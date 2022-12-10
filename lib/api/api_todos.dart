@@ -14,7 +14,6 @@ class TodosApi {
   }
 
   static Stream<List<Todo>> readTodos(DateTime? date) {
-    print(date);
     if (date == null) return const Stream.empty();
 
     final DateTime start = DateTime(date.year, date.month, date.day, 0 , 0, 0);

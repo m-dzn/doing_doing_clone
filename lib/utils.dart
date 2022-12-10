@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class Utils {
   /* Firebase Utils */
@@ -17,6 +18,14 @@ class Utils {
       );
 
   /* Date Utils */
+  static String? toDateString(Timestamp? value) {
+    if (value == null) return null;
+
+    DateTime dateTime = value.toDate();
+
+    return DateFormat("yyyy-MM-dd").format(dateTime);
+  }
+
   static DateTime? toDateTime(Timestamp? value) {
     if (value == null) return null;
 
@@ -24,7 +33,6 @@ class Utils {
   }
 
   static dynamic fromDateTimeToJson(DateTime dateTime) {
-    if (dateTime == null) return null;
     return dateTime.toUtc();
   }
 }

@@ -1,14 +1,15 @@
+import 'package:doing_doing_clone/model/model_diary.dart';
 import 'package:flutter/material.dart';
 import 'package:doing_doing_clone/widget/common/custom_app_bar.dart';
 import 'package:doing_doing_clone/widget/diary/diary_nav_bar.dart';
 import 'package:doing_doing_clone/widget/diary/diary_viewer.dart';
 
 class DiaryScreen extends StatefulWidget {
-  DateTime date;
+  Diary diary;
 
   DiaryScreen({
     super.key,
-    required this.date
+    required this.diary
   });
 
   @override
@@ -26,9 +27,9 @@ class _DiaryScreenState extends State<DiaryScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 48),
               child: Column(
                 children: [
-                  DiaryNavBar(date: widget.date),
+                  DiaryNavBar(dateTime: widget.diary.dateTime),
                   const SizedBox(height: 24),
-                  DiaryViewer()
+                  DiaryViewer(diary: widget.diary)
                 ],
               )
           )

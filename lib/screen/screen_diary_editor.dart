@@ -1,3 +1,4 @@
+import 'package:doing_doing_clone/model/model_diary.dart';
 import 'package:flutter/material.dart';
 import 'package:doing_doing_clone/widget/common/custom_app_bar.dart';
 import 'package:doing_doing_clone/widget/common/dd_text_field.dart';
@@ -6,11 +7,11 @@ import 'package:doing_doing_clone/widget/todo_editor/todo_editor.dart';
 import 'package:intl/intl.dart';
 
 class DiaryEditorScreen extends StatefulWidget {
-  final DateTime? defaultDate;
+  final Diary? diary;
 
   const DiaryEditorScreen({
     Key? key,
-    this.defaultDate
+    this.diary
   }) : super(key: key);
 
   @override
@@ -29,7 +30,7 @@ class _DiaryEditorScreenState extends State<DiaryEditorScreen> {
 
     // 기본 날짜값이 있으면 보여줍니다.
     setState(() {
-      date = widget.defaultDate;
+      date = widget.diary?.dateTime;
     });
     if (date != null) {
       _dateTextController.text = dateFormat.format(date!);

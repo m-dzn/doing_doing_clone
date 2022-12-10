@@ -25,7 +25,7 @@ class _DiaryItemState extends State<DiaryItem> {
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(
-            builder: (context) => DiaryScreen(date: widget.diary.date)
+            builder: (context) => DiaryScreen(diary: widget.diary)
         ));
       },
         child: Container(
@@ -45,7 +45,7 @@ class _DiaryItemState extends State<DiaryItem> {
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: Colors.black12, width: 2)),
                       child: Column(
-                          children: <Widget>[NameSticker(label: dateFormat.format(widget.diary.date))])),
+                          children: <Widget>[NameSticker(label: dateFormat.format(widget.diary.dateTime))])),
                   Container(
                       // Body
                       margin: const EdgeInsets.only(top: 64),
