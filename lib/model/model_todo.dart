@@ -21,8 +21,8 @@ class Todo {
   }) : date = date ?? DateTime.now();
 
   // JSON을 객체로 deserialize합니다. (FireStore 조회 시 사용)
-  static Todo fromJson(Map<String, dynamic> json) => Todo(
-      id: json[TodoField.id],
+  static Todo fromJson(Map<String, dynamic> json, String id) => Todo(
+      id: id,
       text: json[TodoField.text],
       completed: json[TodoField.completed],
       date: Utils.toDateTime(json[TodoField.date])

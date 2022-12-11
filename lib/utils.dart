@@ -6,12 +6,13 @@ import 'package:intl/intl.dart';
 class Utils {
   /* Firebase Utils */
   static StreamTransformer<QuerySnapshot<Map<String, dynamic>>, List<T>> transformer<T>(
-          T Function(Map<String, dynamic> json) fromJson) =>
-      StreamTransformer<QuerySnapshot<Map<String, dynamic>>, List<T>>.fromHandlers(
-        handleData: (QuerySnapshot<Map<String, dynamic>> data,
-            EventSink<List<T>> sink) {
-          final snaps = data.docs.map((doc) => doc.data()).toList();
-          final objects = snaps.map((json) => fromJson(json)).toList();
+          T Function(Map<String, dynamic> json, String id) fromJson
+      ) => StreamTransformer<QuerySnapshot<Map<String, dynamic>>, List<T>>.fromHandlers(
+        handleData: (QuerySnapshot<Map<String, dynamic>> data, EventSink<List<T>> sink)
+        {
+          final objects = data.docs.map((doc) {
+            return fromJson(doc.data(), doc.reference.id);
+          }).toList();
 
           sink.add(objects);
         },

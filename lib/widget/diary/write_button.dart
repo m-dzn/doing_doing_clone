@@ -1,6 +1,8 @@
+import 'package:doing_doing_clone/provider/date_time_provider.dart';
 import 'package:doing_doing_clone/screen/screen_diary_editor.dart';
 import 'package:doing_doing_clone/model/model_diary.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class WriteButton extends StatelessWidget {
   final Diary? diary;
@@ -12,13 +14,24 @@ class WriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTimeProvider dateTimeProvider = Provider.of(context);
+
     return Material(
         color: Colors.transparent,
         child: InkWell(
           splashColor: Colors.lightGreenAccent,
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext contenxt) {
-            return DiaryEditorScreen(diary: this.diary);
-          })),
+          onTap: () async {
+            final changedDate = await Navigator.push(
+                context, MaterialPageRoute(builder: (BuildContext contenxt) {
+              dateTimeProvider.changeDateTime(diary?.dateTime ?? DateTime.now());
+              return DiaryEditorScreen(diary: diary);
+            }));
+
+            if (changedDate != null) {
+              print(changedDate);
+              dateTimeProvider.changeDateTime(changedDate);
+            }
+          },
           child: Container(
               width: 32,
               height: 32,

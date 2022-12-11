@@ -1,10 +1,13 @@
 import 'package:doing_doing_clone/model/model_diary.dart';
+import 'package:doing_doing_clone/provider/date_time_provider.dart';
+import 'package:doing_doing_clone/provider/diaries.dart';
 import 'package:flutter/material.dart';
-import 'package:doing_doing_clone/widget/common/custom_app_bar.dart';
+import 'package:doing_doing_clone/widget/common/app_bar/diary_editor_screen_app_bar.dart';
 import 'package:doing_doing_clone/widget/common/dd_text_field.dart';
 import 'package:doing_doing_clone/widget/common/name_sticker.dart';
 import 'package:doing_doing_clone/widget/todo_editor/todo_editor.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class DiaryEditorScreen extends StatefulWidget {
   final Diary? diary;
@@ -19,10 +22,14 @@ class DiaryEditorScreen extends StatefulWidget {
 }
 
 class _DiaryEditorScreenState extends State<DiaryEditorScreen> {
-  bool _isShow = false;
+  late DiariesProvider _diariesProvider;
+  late DateTimeProvider _dateTimeProvider;
+
+  DateTime? date;
+  late bool _isDiaryDisplayed;
+
   final TextEditingController _dateTextController = TextEditingController();
   final DateFormat dateFormat = DateFormat('yyyy년 MM월 dd일 (E)', 'ko');
-  DateTime? date;
 
   @override
   void initState() {
@@ -31,6 +38,7 @@ class _DiaryEditorScreenState extends State<DiaryEditorScreen> {
     // 기본 날짜값이 있으면 보여줍니다.
     setState(() {
       date = widget.diary?.dateTime;
+      _isDiaryDisplayed = widget.diary?.isDiaryDisplayed ?? false;
     });
     if (date != null) {
       _dateTextController.text = dateFormat.format(date!);
@@ -45,9 +53,12 @@ class _DiaryEditorScreenState extends State<DiaryEditorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _diariesProvider = Provider.of(context);
+    _dateTimeProvider = Provider.of(context);
+
     return SafeArea(
         child: Scaffold(
-            appBar: const CustomAppBar(),
+            appBar: const DiaryEditorScreenAppBar(),
             body: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
@@ -72,8 +83,8 @@ class _DiaryEditorScreenState extends State<DiaryEditorScreen> {
                                   setState(() {
                                     date = pickedDate;
                                   });
-                                  _dateTextController.text = dateFormat.format(
-                                      date!);
+                                  _dateTextController.text = dateFormat.format(date!);
+                                  _dateTimeProvider.changeDateTime(date!);
                                 }
                               },
                             )),
@@ -94,11 +105,14 @@ class _DiaryEditorScreenState extends State<DiaryEditorScreen> {
                                   inactiveTrackColor: Colors.black12,
                                   activeTrackColor: const Color(0xffF4AEA4),
                                   activeColor: Colors.white,
-                                  value: _isShow,
+                                  value: _isDiaryDisplayed,
                                   onChanged: (value) {
-                                    setState(() {
-                                      _isShow = value;
-                                    });
+                                    if (widget.diary != null) {
+                                      _diariesProvider.toggleDisplayState(widget.diary!);
+                                      setState(() {
+                                        _isDiaryDisplayed = value;
+                                      });
+                                    }
                                   }
                               )
                             ]

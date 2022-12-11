@@ -1,3 +1,5 @@
+import 'package:doing_doing_clone/provider/date_time_provider.dart';
+import 'package:doing_doing_clone/provider/diaries.dart';
 import 'package:doing_doing_clone/provider/todos.dart';
 import 'package:doing_doing_clone/screen/screen_home.dart';
 import 'package:doing_doing_clone/service/app.theme.dart';
@@ -24,22 +26,27 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => TodosProvider(),
-        child: MaterialApp(
-          title: title,
-          theme: themeData,
-          home: const HomeScreen(),
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: const [
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate
-          ],
-          supportedLocales: const [
-            Locale('ko', 'KR')
-          ],
-          locale: const Locale('ko'),
-        ));
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => DiariesProvider()),
+        ChangeNotifierProvider(create: (_) => TodosProvider()),
+        ChangeNotifierProvider(create: (_) => DateTimeProvider()),
+      ],
+      child: MaterialApp(
+        title: title,
+        theme: themeData,
+        home: const HomeScreen(),
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
+        ],
+        supportedLocales: const [
+          Locale('ko', 'KR')
+        ],
+        locale: const Locale('ko'),
+      )
+    );
   }
 }

@@ -36,13 +36,24 @@ class DiariesApi {
     final snapshot = await FirebaseFirestore.instance.collection("diary").doc(dateString).get();
 
     if (snapshot.exists) {
-      return Diary.fromJson(snapshot.data()!);
+      return Diary.fromJson(snapshot.data()!, snapshot.reference.id);
     }
 
     return null;
   }
 
+  static Future<Diary> getPrevDiary(DateTime dateTime) async {
+    final snapshot = (await FirebaseFirestore.instance.collection("diary").orderBy(DiaryField.dateTime, descending: true).startAfter([Utils.fromDateTimeToJson(dateTime)]).limit(1).get()).docs.first;
+    return Diary.fromJson(snapshot.data(), snapshot.reference.id);
+  }
+
+  static Future<Diary> getNextDiary(DateTime dateTime) async {
+    final snapshot = (await FirebaseFirestore.instance.collection("diary").orderBy(DiaryField.dateTime).startAfter([Utils.fromDateTimeToJson(dateTime)]).limit(1).get()).docs.first;
+    return Diary.fromJson(snapshot.data(), snapshot.reference.id);
+  }
+
   static Future updateDiary(Diary diary) async {
+    print(diary.id);
     final diaryDoc = FirebaseFirestore.instance.collection("diary").doc(diary.id);
     await diaryDoc.update(diary.toJson());
   }

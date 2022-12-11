@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doing_doing_clone/widget/common/app_bar/home_screen_app_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:doing_doing_clone/widget/common/custom_app_bar.dart';
 import 'package:doing_doing_clone/widget/home/diary_list.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,24 +14,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   Future<void> init(String collection) async {
     await Firebase.initializeApp();
-
-    FirebaseFirestore.instance
-      .collection(collection)
-      .snapshots()
-      .listen((event) {
-        event.docs.forEach((element) {
-          if (collection == 'todo') {
-
-          }
-        });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return const SafeArea(
         child: Scaffold(
-          appBar: const CustomAppBar(),
+          appBar: HomeScreenAppBar(),
           body: Center(child: DiaryList()),
         )
     );
