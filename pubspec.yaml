@@ -45,6 +45,8 @@ dependencies:
   cloud_firestore: ^4.1.0
   provider: ^6.0.4
 
+  month_year_picker: ^0.2.0+2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

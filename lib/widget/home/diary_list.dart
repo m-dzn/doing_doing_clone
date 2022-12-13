@@ -1,7 +1,9 @@
 import 'package:doing_doing_clone/api/api_diaries.dart';
+import 'package:doing_doing_clone/provider/year_month_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:doing_doing_clone/model/model_diary.dart';
 import 'package:doing_doing_clone/widget/home/diary_item.dart';
+import 'package:provider/provider.dart';
 
 class DiaryList extends StatefulWidget {
   const DiaryList({
@@ -13,12 +15,16 @@ class DiaryList extends StatefulWidget {
 }
 
 class _DiaryListState extends State<DiaryList> {
+  late YearMonthProvider _yearMonthProvider;
+
   @override
   Widget build(BuildContext context) {
+    _yearMonthProvider = Provider.of(context);
+
     return Container(
         margin: const EdgeInsets.all(24),
         child: StreamBuilder<List<Diary>>(
-          stream: DiariesApi.readDiaries(DateTime.now()),
+          stream: DiariesApi.readDiaries(_yearMonthProvider.yearMonth),
           builder: (context, snapshot) {
             List<Diary>? diaries = snapshot.data;
 
@@ -29,6 +35,7 @@ class _DiaryListState extends State<DiaryList> {
                   crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
+                childAspectRatio: 1 / 1.5
               ),
               primary: false,
               shrinkWrap: true,

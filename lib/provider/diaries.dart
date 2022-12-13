@@ -29,6 +29,7 @@ class DiariesProvider extends ChangeNotifier {
   bool toggleDisplayState(Diary diary) {
     diary.isDiaryDisplayed = !diary.isDiaryDisplayed;
     DiariesApi.updateDiary(diary);
+    notifyListeners();
     return diary.isDiaryDisplayed;
   }
 

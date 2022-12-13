@@ -1,3 +1,4 @@
+import 'package:doing_doing_clone/api/api_diaries.dart';
 import 'package:doing_doing_clone/model/model_diary.dart';
 import 'package:doing_doing_clone/provider/date_time_provider.dart';
 import 'package:doing_doing_clone/provider/diaries.dart';
@@ -10,11 +11,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DiaryEditorScreen extends StatefulWidget {
-  final Diary? diary;
-
   const DiaryEditorScreen({
     Key? key,
-    this.diary
   }) : super(key: key);
 
   @override
@@ -25,8 +23,7 @@ class _DiaryEditorScreenState extends State<DiaryEditorScreen> {
   late DiariesProvider _diariesProvider;
   late DateTimeProvider _dateTimeProvider;
 
-  DateTime? date;
-  late bool _isDiaryDisplayed;
+  late bool _isDiaryDisplayed = true;
 
   final TextEditingController _dateTextController = TextEditingController();
   final DateFormat dateFormat = DateFormat('yyyy년 MM월 dd일 (E)', 'ko');
@@ -35,14 +32,15 @@ class _DiaryEditorScreenState extends State<DiaryEditorScreen> {
   void initState() {
     super.initState();
 
-    // 기본 날짜값이 있으면 보여줍니다.
-    setState(() {
-      date = widget.diary?.dateTime;
-      _isDiaryDisplayed = widget.diary?.isDiaryDisplayed ?? false;
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _dateTimeProvider = Provider.of(context, listen: false);
+      _dateTextController.text = dateFormat.format(_dateTimeProvider.dateTime);
+
+      _diariesProvider = Provider.of(context, listen: false);
+      setState(() {
+        _isDiaryDisplayed = _diariesProvider.diary?.isDiaryDisplayed ?? true;
+      });
     });
-    if (date != null) {
-      _dateTextController.text = dateFormat.format(date!);
-    }
   }
 
   @override
@@ -80,11 +78,8 @@ class _DiaryEditorScreenState extends State<DiaryEditorScreen> {
                                 );
 
                                 if (pickedDate != null) {
-                                  setState(() {
-                                    date = pickedDate;
-                                  });
-                                  _dateTextController.text = dateFormat.format(date!);
-                                  _dateTimeProvider.changeDateTime(date!);
+                                  _dateTextController.text = dateFormat.format(pickedDate);
+                                  _dateTimeProvider.changeDateTime(pickedDate);
                                 }
                               },
                             )),
@@ -92,7 +87,7 @@ class _DiaryEditorScreenState extends State<DiaryEditorScreen> {
                       ),
                       const SizedBox(height: 24),
 
-                      TodoEditor(date: date),
+                      TodoEditor(date: _diariesProvider.diary?.dateTime),
 
                       Container( // 일기 내용 보이기
                         padding: const EdgeInsets.only(left: 16, right: 4),
@@ -107,8 +102,8 @@ class _DiaryEditorScreenState extends State<DiaryEditorScreen> {
                                   activeColor: Colors.white,
                                   value: _isDiaryDisplayed,
                                   onChanged: (value) {
-                                    if (widget.diary != null) {
-                                      _diariesProvider.toggleDisplayState(widget.diary!);
+                                    if (_diariesProvider.diary != null) {
+                                      _diariesProvider.toggleDisplayState(_diariesProvider.diary!);
                                       setState(() {
                                         _isDiaryDisplayed = value;
                                       });
@@ -119,13 +114,36 @@ class _DiaryEditorScreenState extends State<DiaryEditorScreen> {
                         ),
                       ),
                       const SizedBox(height: 24),
-                      Center(
+                      if (_diariesProvider.diary != null) Center(
                         child: TextButton.icon(
                           icon: const Icon(
                               Icons.delete_outlined, color: Colors.black),
                           label: const Text(
                             '삭제', style: TextStyle(color: Colors.black),),
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                  content: const Text("이날의 할 일 전체가 삭제됩니다.\n삭제하시겠습니까?"),
+                                  actionsAlignment: MainAxisAlignment.center,
+                                  actionsPadding: const EdgeInsets.symmetric(vertical: 24),
+                                  actions: <Widget>[
+                                      TextButton(
+                                          child: const Text("삭제", style: TextStyle(color: Colors.red, fontSize: 20)),
+                                          onPressed: () {
+                                            if (_diariesProvider.diary != null) {
+                                              _diariesProvider.removeDiary(_diariesProvider.diary!);
+
+                                              int count = 0;
+                                              Navigator.of(context).popUntil((_) => count++ >= 2);
+                                            }
+                                          }
+                                        )
+
+                                  ]
+                                )
+                            );
+                          },
                         ),
                       )
                     ]

@@ -21,10 +21,12 @@ class TodoEditor extends StatefulWidget {
 }
 
 class _TodoEditorState extends State<TodoEditor> {
+  late TodosProvider _todosProvider;
   final TextEditingController _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    _todosProvider = Provider.of(context);
     bool isDateSelected = widget.date != null;
 
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -40,7 +42,7 @@ class _TodoEditorState extends State<TodoEditor> {
             icon: const Icon(Icons.add, color: Colors.white),
             onPressed: () async {
               Todo newTodo = Todo(text: _textController.text, date: widget.date);
-              await TodosApi.createTodo(newTodo);
+              _todosProvider.addTodo(newTodo);
               _textController.clear();
             }),
       ]),

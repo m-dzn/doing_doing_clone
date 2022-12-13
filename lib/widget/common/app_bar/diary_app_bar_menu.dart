@@ -1,4 +1,5 @@
 import 'package:doing_doing_clone/provider/date_time_provider.dart';
+import 'package:doing_doing_clone/screen/screen_diary_editor.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +27,14 @@ class DiaryAppBarMenu extends StatelessWidget {
               )
           ),
           const SizedBox(width: 20),
-          const Icon(Icons.add, size: 30)
+          IconButton(
+            icon: const Icon(Icons.add, size: 30),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => const DiaryEditorScreen()
+              ));
+            },
+          )
         ]
     );
   }

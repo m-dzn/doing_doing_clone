@@ -1,12 +1,14 @@
 import 'package:doing_doing_clone/provider/date_time_provider.dart';
 import 'package:doing_doing_clone/provider/diaries.dart';
 import 'package:doing_doing_clone/provider/todos.dart';
+import 'package:doing_doing_clone/provider/year_month_provider.dart';
 import 'package:doing_doing_clone/screen/screen_home.dart';
 import 'package:doing_doing_clone/service/app.theme.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -31,6 +33,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DiariesProvider()),
         ChangeNotifierProvider(create: (_) => TodosProvider()),
         ChangeNotifierProvider(create: (_) => DateTimeProvider()),
+        ChangeNotifierProvider(create: (_) => YearMonthProvider()),
       ],
       child: MaterialApp(
         title: title,
@@ -40,7 +43,7 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate
+          GlobalWidgetsLocalizations.delegate,
         ],
         supportedLocales: const [
           Locale('ko', 'KR')

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doing_doing_clone/model/model_diary.dart';
+import 'package:doing_doing_clone/model/model_todo.dart';
 import 'package:doing_doing_clone/utils.dart';
 import 'package:intl/intl.dart';
 
@@ -21,8 +22,6 @@ class DiariesApi {
   static Stream<List<Diary>> readDiaries(DateTime date) {
     final DateTime start = DateTime(date.year, date.month, 1);
     final DateTime end = DateTime(date.year, date.month + 1, 0);
-
-    print('$start, $end');
 
     return FirebaseFirestore.instance
       .collection('diary')
@@ -59,6 +58,17 @@ class DiariesApi {
   }
 
   static Future deleteDiary(Diary diary) async {
+    final DateTime start = DateTime(diary.dateTime.year, diary.dateTime.month, diary.dateTime.day, 0, 0, 0);
+    final DateTime end = DateTime(diary.dateTime.year, diary.dateTime.month, diary.dateTime.day, 23, 59, 59);
+
+    // 관련 할 일 목록도 함께 삭제
+    final todoSnapshots = await FirebaseFirestore.instance.collection("todo")
+        .where(TodoField.date, isGreaterThanOrEqualTo: start, isLessThanOrEqualTo: end).get();
+
+    for (var doc in todoSnapshots.docs) {
+      await doc.reference.delete();
+    }
+
     final diaryDoc = FirebaseFirestore.instance.collection("diary").doc(diary.id);
     await diaryDoc.delete();
   }

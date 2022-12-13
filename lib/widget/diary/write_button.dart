@@ -22,9 +22,10 @@ class WriteButton extends StatelessWidget {
           splashColor: Colors.lightGreenAccent,
           onTap: () async {
             final changedDate = await Navigator.push(
-                context, MaterialPageRoute(builder: (BuildContext contenxt) {
-              dateTimeProvider.changeDateTime(diary?.dateTime ?? DateTime.now());
-              return DiaryEditorScreen(diary: diary);
+                context,
+                MaterialPageRoute(builder: (BuildContext contenxt) {
+                  dateTimeProvider.changeDateTime(diary?.dateTime ?? DateTime.now());
+                  return const DiaryEditorScreen();
             }));
 
             if (changedDate != null) {

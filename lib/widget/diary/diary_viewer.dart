@@ -2,11 +2,13 @@ import 'package:doing_doing_clone/api/api_diaries.dart';
 import 'package:doing_doing_clone/api/api_todos.dart';
 import 'package:doing_doing_clone/model/model_diary.dart';
 import 'package:doing_doing_clone/model/model_todo.dart';
+import 'package:doing_doing_clone/provider/diaries.dart';
 import 'package:doing_doing_clone/widget/empty_todos.dart';
 import 'package:doing_doing_clone/widget/todo_editor/todo_item.dart';
 import 'package:flutter/material.dart';
 import 'package:doing_doing_clone/widget/diary/emotion_input.dart';
 import 'package:doing_doing_clone/widget/diary/write_button.dart';
+import 'package:provider/provider.dart';
 
 class DiaryViewer extends StatefulWidget {
   DateTime dateTime;
@@ -21,10 +23,12 @@ class DiaryViewer extends StatefulWidget {
 }
 
 class _DiaryViewerState extends State<DiaryViewer> {
+  late DiariesProvider _diariesProvider;
   final TextEditingController _diaryTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    _diariesProvider = Provider.of(context);
 
     return FutureBuilder<Diary?>(
         future: DiariesApi.readDiary(widget.dateTime),
@@ -32,6 +36,10 @@ class _DiaryViewerState extends State<DiaryViewer> {
           if (snapshot.hasData) {
             final Diary? diary = snapshot.data;
             _diaryTextController.text = diary?.diary ?? '';
+
+            if (diary != null) {
+              _diariesProvider.setDiary(diary);
+            }
 
             return Container(
                 color: Colors.white,
